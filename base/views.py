@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 
+
 def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
@@ -66,7 +67,7 @@ def home(request):
 
     topics = Topic.objects.all()
     room_count = rooms.count()
-    room_message = Message.objects.all()
+    room_message = Message.objects.filter(Q(room__topic__name__icontains=q))
     print(request.user)
 
 
@@ -97,7 +98,9 @@ def createRoom(request):
     if request.method == "POST":
         form = RoomForm(request.POST)
         if form.is_valid():
-            form.save()
+            room = form.save(commit=False)
+            room.host = request.user
+            room.user
             return redirect('home')
 
     context = {'form':form}
@@ -148,7 +151,13 @@ def deleteMessage(request, pk):
     context = {'obj':message}
     return render(request, 'base/delete.html', context) 
 
-
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    room_message = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user':user, 'rooms':rooms, 'room_message':room_message, 'topics':topics}
+    return render(request, 'base/profile.html', context)
 
 
 
