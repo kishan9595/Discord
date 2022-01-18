@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Clone</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
-    <script></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Discord</title>
 </head>
+
 <body>
+
     {% include 'navbar.html' %}
 
     {% if messages %}
@@ -20,11 +23,12 @@
     </ul>
     {% endif %}
 
-    <img style="width: 500px;" src="{% static 'images/circuit.jpg' %}" alt="">
-
     {% block content %}
 
-    {% endblock content %}
 
+    {% endblock %}
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
+
 </html>
